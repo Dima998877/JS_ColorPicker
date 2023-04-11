@@ -1,5 +1,5 @@
-const cols = document.querySelectorAll('.col')
-
+const cols = document.querySelectorAll('.col');
+const popup = document.getElementById('popup');
 document.addEventListener('keydown', e => {
    e.preventDefault()
    if (e.code.toLowerCase() === 'space') {
@@ -16,12 +16,14 @@ document.addEventListener('click', (e) => {
 
       node.classList.toggle('fa-lock-open')
       node.classList.toggle('fa-lock')
-      console.log(typeof(setRandomColor));
-
+      
    }
    else if (type === 'copy') {
       copyToClipBoard(e.target.textContent)
-
+      popup.classList.toggle('show')
+      setTimeout(() => {popup.classList.toggle('show')}, '2000')
+      
+      
    }
 })
 
@@ -51,9 +53,7 @@ function setRandomColor(isInitial) {
             ? colors[index] 
                : chroma.random()
          : chroma.random()
-
-
-            
+    
       if (!isInitial) {
          colors.push(color)
       }
@@ -71,8 +71,9 @@ function setTextColor(text, color) {
    text.style.color = luminance > 0.5 ? 'black' : 'white'
 }
 function copyToClipBoard(text) {
-   return navigator.clipboard.writeText(text)
-}
+   return(
+    navigator.clipboard.writeText(text)
+)}
 function updateColorHash(colors = []) {
    document.location.hash = colors
       .map((col) => { return col.toString().substring(1) })
