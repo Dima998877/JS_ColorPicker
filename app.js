@@ -10,20 +10,10 @@ document.addEventListener('click', (e) => {
    const type = e.target.dataset.type
 
    if (type === 'lock') {
-      const node = e.target.tagName.toLowerCase() === 'i'
-         ? e.target
-         : e.target.children[0];
-
-      node.classList.toggle('fa-lock-open')
-      node.classList.toggle('fa-lock')
-      
+      toggleLockIcon(e)
    }
    else if (type === 'copy') {
-      copyToClipBoard(e.target.textContent)
-      popup.classList.toggle('show')
-      setTimeout(() => {popup.classList.toggle('show')}, '2000')
-      
-      
+      showPopup(e)
    }
 })
 
@@ -87,5 +77,18 @@ function getColorsFromHash() {
          .map((color) => '#' + color)
    }
    return []
+}
+function toggleLockIcon(e) {
+   const node = e.target.tagName.toLowerCase() === 'i'
+   ? e.target
+   : e.target.children[0];
+
+node.classList.toggle('fa-lock-open')
+node.classList.toggle('fa-lock')
+}
+function showPopup(e){
+copyToClipBoard(e.target.textContent)
+popup.classList.toggle('show')
+setTimeout(() => {popup.classList.toggle('show')}, '2000') 
 }
 setRandomColor(true)
